@@ -39,7 +39,6 @@ function update() {
 				$("#whitename").html(arr[1]);
 				$("#blackname").html(arr[2]);
 				board.position(arr[3]);
-				arr[5].split(";").forEach(function(x) {if (x.length > 0){console.log(x)}});
 			}
 		});
 	}

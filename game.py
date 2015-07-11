@@ -42,25 +42,17 @@ class Bot:
 				print "^^^^^^^^^^^^^^^^^"
 
 			x = moves.split()[0]
-			logs = []
 		else:
-			xq = [i.strip() for i in x[1].split("\n") if i.strip() != ""]
-			logs = [i.split(": ", 1)[1].replace(";", "").replace("\n", "") for i in xq if i.split(": ")[0].lower() == "log"]
-			xq = [i for i in xq if not ":" in i]
-			if len(xq) != 1: # zero or multiple moves ~= illegal move
-				print "Illegal move: ", xq
-				x = moves.split()[0]
-			else:
-				x = x[1].strip()
-		if not x in moves:  # illegal move
+			x = x[1].strip()
+		if not x in moves.split():  # illegal move
 			print "Illegal move:", x
 			x = moves.split()[0]
-		return x, logs
+		return x
 
 class Game:
 	def __init__(self, bots):
 		self.bots = bots
-		self.board = chess.Board("rnbqkbnr/pppppppp/8/8/P1QRKBN1/8/1PPPPPPP/1N3B1R w - - 0 1")
+		self.board = chess.Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1")
 		self.move_history = []
 		self.status = "running"
 		# decide white and black
@@ -71,28 +63,28 @@ class Game:
 		fen =  self.board.fen()
 		moves = " ".join([self.board.san(i) for i in self.board.generate_legal_moves()])
 		current = {"w": self.white, "b": self.black}[fen.split()[1]]
-		move, logmsgs = current.decide(fen, moves, self.move_history)
+		move = current.decide(fen, moves, self.move_history)
 		self.board.push_san(move)
 		self.move_history.append(move)
 		# draw detect
 		if self.board.is_insufficient_material():
 			print "Draw: insufficient material"
 			self.status = "draw"
-			return "draw", logmsgs
+			return "draw"
 		if self.board.is_stalemate():
 			print "Draw: stalemate"
 			self.status = "draw"
-			return "draw", logmsgs
+			return "draw"
 		if self.board.is_fivefold_repetition():
 			print "Draw: fivefold repetition"
 			self.status = "draw"
-			return "draw", logmsgs
+			return "draw"
 		if self.board.is_seventyfive_moves():
 			print "Draw: seventyfive moves rule"
 			self.status = "draw"
-			return "draw", logmsgs
+			return "draw"
 		if self.board.is_game_over():
 			print "Check Mate"
 			self.status = "win"
-			return "win", logmsgs
-		return None, logmsgs
+			return "win"
+		return None

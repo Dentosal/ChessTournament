@@ -23,7 +23,7 @@ def getfile(filename):
 		return "<html><head><title>ERROR</title></head><body><tt>ERROR: FILE NOT FOUND</tt></body></html>"
 
 def apireq(args):
-	global current_game, nextgame_counter, logmsg_queue
+	global current_game, nextgame_counter
 	if len(args)==0:
 		return "Error: Empty API Request"
 	if args[0] == "ping":	# ping
@@ -36,11 +36,7 @@ def apireq(args):
 								current_game.white.name,
 								current_game.black.name,
 								current_game.board.fen(),
-								";".join(current_game.move_history),
-								";".join(logmsg_queue)])
-			for msg in logmsg_queue:
-				print "log:", msg
-			logmsg_queue = []
+								";".join(current_game.move_history)])
 			return ret
 	elif args[0] == "debug":
 		if args[1] == "next":
@@ -67,7 +63,7 @@ class ChessGameServer(resource.Resource):
 			return getfile("web"+request.uri)
 
 def step():
-	global current_game, nextgame_counter, logmsg_queue
+	global current_game, nextgame_counter
 	if current_game == None:
 		if nextgame_counter > 0:
 			nextgame_counter -= GAME_STEP_INTERVAL
@@ -87,10 +83,9 @@ def step():
 		nextgame_counter = 10
 		return
 
-	ret, logmsgs = current_game.step()
+	ret = current_game.step()
 	if ret in ["draw", "win"]:
 		status = ret
-	logmsg_queue += logmsgs
 
 
 if __name__=="__main__":
@@ -109,7 +104,6 @@ if __name__=="__main__":
 	status = "running"
 	current_game = None
 	nextgame_counter = NEXT_GAME_DELAY
-	logmsg_queue = []
 
 
 	task.LoopingCall(step).start(GAME_STEP_INTERVAL, True)
