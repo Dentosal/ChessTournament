@@ -1,0 +1,110 @@
+body {
+	color: #CCC;
+	background-color: #333;
+}
+#header {
+	font-size: 50px;
+	font-family: Helvetica, Impact, monospace;
+	font-variant: small-caps;
+}
+#subheader {
+	font-size: 20px;
+	font-family: Helvetica, Impact, monospace;
+	font-variant: small-caps;
+	margin: 0px;
+}
+#content {
+	text-align: center;
+}
+#board {
+    color: white;
+    border-radius: 1px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+	margin-right: -50%;
+	-moz-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+#names {
+	font-size: 50px;
+	font-family: Impact, monospace;
+	font-variant: small-caps;
+	width: 100%;
+	display: table;
+}
+.name {
+	width: 40%;
+	display: table-cell;
+	margin: 0 auto;
+}
+#labels {
+	font-size: 20px;
+	font-family: Impact, monospace;
+	font-variant: small-caps;
+	width: 100%;
+	display: table;
+}
+.label {
+	width: 40%;
+	display: table-cell;
+	margin: 0 auto;
+}
+
+#infobar {
+	height: 30px;
+	width: 100%;
+	color: #FFF;
+	background-color: #555;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+}
+#copyright {
+	font-size: 20px;
+	font-variant: small-caps;
+	text-align: center;
+
+}
+#cbjslicence {
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+	float: right;
+	text-align: right;
+}
+#cbjslicencelink {
+	text-decoration: none;
+	color: #FFF;
+
+}
+
+#serverstatus {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	float: left;
+	text-align: left;
+	font-family: monospace;
+}
+#connectionsymbol {
+	color: #0F0;
+}
+
+#msgbox {
+	display: none; /* Hidden by default */
+    color: white;
+    border-radius: 1px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+	padding: 10px;
+	margin-right: -50%;
+	background-color: #555;
+	text-align: center;
+	font-size: 30px;
+	-moz-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
